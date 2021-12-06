@@ -1,0 +1,25 @@
+{
+  "name": "pvz-createjs",
+  "version": "1.0.0",
+  "description": "plants vs zombie (createjs version)",
+  "main": "index.js",
+  "scripts": {
+    "start": "npx webpack serve",
+    "build": "webpack"
+  },
+  "author": "parz1",
+  "license": "ISC",
+  "dependencies": {
+    "@types/createjs": "^0.0.29",
+    "createjs": "^1.0.1"
+  },
+  "devDependencies": {
+    "exports-loader": "^3.1.0",
+    "file-loader": "^6.2.0",
+    "html-webpack-plugin": "^5.5.0",
+    "imports-loader": "^3.1.1",
+    "webpack": "^5.64.4",
+    "webpack-cli": "^4.9.1",
+    "webpack-dev-server": "^4.6.0"
+  }
+}
