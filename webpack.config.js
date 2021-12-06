@@ -1,5 +1,6 @@
 const path = require('path')
 
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 const rootPath = path.resolve(__dirname, 'src')
@@ -28,6 +29,11 @@ module.exports = {
   module: {
     rules: [
       {
+        test: /\.css$/,
+        exclude: /node_modules/,
+        use: [MiniCssExtractPlugin.loader, 'css-loader'],
+      },
+      {
         test: /node_modules(\/|\\)(createjs)(\/|\\).*\.js$/,
         loader: 'imports-loader',
         options: {
@@ -39,7 +45,11 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       title: 'Plants VS Zombies (createjs version)',
-    })
+    }),
+    new MiniCssExtractPlugin({
+      filename: '[name].css',
+      chunkFilename: '[id].css',
+    }),
   ],
   resolve: {
     alias: {

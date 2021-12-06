@@ -8,6 +8,8 @@ export class Game {
   }
   init() {
     this.stage = new createjs.Stage(this.canvas)
+    const text = new createjs.Text('HELLO WORLD')
+    this.stage.addChild(text)
     createjs.Ticker.framerate = CONFIG.framerate
     createjs.Ticker.on('tick', () => {
       this.update()

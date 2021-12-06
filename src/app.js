@@ -1,7 +1,7 @@
 // import './polyfills'
 import { createDOMStage, getDOMStage } from '@/utils'
 import { Game } from '@/base/Game'
-// import './styles.css'
+import './global.css'
 
 const init = () => {
   const body = document.getElementsByTagName('body')[0]
