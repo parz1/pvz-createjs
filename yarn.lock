@@ -1471,6 +1471,11 @@ isobject@^3.0.1:
   resolved "https://registry.nlark.com/isobject/download/isobject-3.0.1.tgz#4e431e92b11a9731636aa1f9c8d1ccbcfdab78df"
   integrity sha1-TkMekrEalzFjaqH5yNHMvP2reN8=
 
+javascript-state-machine@^3.1.0:
+  version "3.1.0"
+  resolved "https://registry.npm.taobao.org/javascript-state-machine/download/javascript-state-machine-3.1.0.tgz#06eeb2136a6a19ae1b56105c25caec283dd5cd14"
+  integrity sha1-Bu6yE2pqGa4bVhBcJcrsKD3VzRQ=
+
 jest-worker@^27.0.6:
   version "27.4.2"
   resolved "https://registry.npmmirror.com/jest-worker/download/jest-worker-27.4.2.tgz#0fb123d50955af1a450267787f340a1bf7e12bc4"

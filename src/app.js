@@ -7,11 +7,12 @@ const init = () => {
   const body = document.getElementsByTagName('body')[0]
   const canvas = createDOMStage()
   body.append(canvas)
-
   window.onload = () => {
     const canvas = getDOMStage()
     const game = new Game(canvas)
-
+    // NOTE hack
+    window.game = game
+    
     game.init()
   }
 }
