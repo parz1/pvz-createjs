@@ -1,5 +1,9 @@
 export const manifest = [
-  { id: 'bg', src: require('@/assets/img/background-level-1.jpg').default},
+  { id: 'bg1', src: require('@/assets/img/background-level-1.jpg').default},
+  { id: 'bg2', src: require('@/assets/img/background-level-2.jpg').default},
+  { id: 'repeaterS', src: require('@/assets/img/plant/repeater.png').default},
+  { id: 'repeaterBulletS', src: require('@/assets/img/plant/repeater-bullet.png').default},
+  { id: 'repeaterBulletHitS', src: require('@/assets/img/plant/repeater-bullet-hit.png').default},
   { id: 'zombie1S', src: require('@/assets/img/zombie/zombie-1.png').default },
   { id: 'zombie2S', src: require('@/assets/img/zombie/zombie-2.png').default },
   { id: 'zombie3S', src: require('@/assets/img/zombie/zombie-3.png').default },
@@ -12,6 +16,24 @@ export const manifest = [
 ]
 
 export const ssManifest = {
+  repeaterS: {
+    frames: {width: 73, height: 71},
+    animations: {
+      play: [0, 14, 'play', 0.15]
+    }
+  },
+  repeaterBulletS: {
+    frames: {width: 56, height: 34},
+    animations: {
+      play: [0]
+    }
+  },
+  repeaterBulletHitS: {
+    frames: {width: 52, height: 46},
+    animations: {
+      play: [0]
+    }
+  },
   zombie1S: {
     frames: {width: 166, height: 144},
     animations: {

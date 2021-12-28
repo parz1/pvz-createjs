@@ -3,26 +3,27 @@ import { manifest, ssManifest } from "@/config/manifest";
 import { ZombieFSM } from "./Fsm";
 
 export class Zombie extends MoveableObject {
-  constructor(sprites, store) {
+  constructor(spriteSheet, store) {
     super(store)
-    this.spriteNames = ['zombie1S', 'zombieDieS', 'zombieHeadS', 'zombieAttackingS', 'zombieBurnedS']
-    this.sprites = {}
-    this.spriteNames.forEach(v => {
-      this.sprites[v] = sprites[v]
-    })
-    this.fsm = new ZombieFSM(this, this.sprites)
+    this.spriteSheet = spriteSheet
+    this.fsm = new ZombieFSM(this, this.spriteSheet)
     this.graphic = null
+    this.hp = 100
   }
   init() {
-    this.graphic = this.sprites['zombie1S']
+    this.graphic = new createjs.Sprite(this.spriteSheet['zombie1S'], 'play')
     this.addChild(this.graphic)
-    setTimeout(() => {
-      // this.graphic = this.sprites['zombieDieS']
-      this.fsm.attack()
-    }, 2000);
-    setTimeout(() => {
-      // this.graphic = this.sprites['zombieDieS']
-      this.fsm.burn()
-    }, 3000);
+  }
+  attack() {
+    this.fsm.attack()
+  }
+  burn() {
+    this.fsm.burn()
+  }
+  hit() {
+    this.hp -= 50
+    if (this.hp <= 0 && this.fsm.state !== 'dead') {
+      this.fsm.die()
+    }
   }
 }

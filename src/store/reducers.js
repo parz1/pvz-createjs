@@ -14,22 +14,23 @@ function worldReducers(state = initialState.world, action) {
         ...state,
         score: state.score += payload.score
       }
+    default:
+      return state
   }
-  return state
 }
 
 function gameReducers(state = initialState.game, action) {
   const { payload, type } = action
   switch (type) {
-    case 'ADD_SCORE':
+    case 'ADD_ZOMBIE':
       // TODO change state
       return {
-        ...state
+        ...state,
+        zombies: [...state.zombies, payload]
       }
     default:
       return state
   }
-  return state
 }
 
 export const reducer = {

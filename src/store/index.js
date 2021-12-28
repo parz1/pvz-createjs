@@ -16,6 +16,7 @@ export class Store {
     }
   }
   dispatch(action) {
+    console.log(action)
     this.action = action
     this.state = this.reduce(this.state, this.action)
     this.subscribers.forEach(fn => fn(this.value, this.action))
