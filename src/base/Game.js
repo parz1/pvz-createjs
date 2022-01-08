@@ -7,6 +7,7 @@ import { reducer } from "@/store/reducers";
 import { state } from "@/store/state";
 import { Zombie } from "./Zombie";
 import { Plant, PlatForm } from "./Plant";
+import { CustomMouse, PlantCard } from "./UI";
 
 export class Game {
   constructor(canvas) {
@@ -14,9 +15,9 @@ export class Game {
     this.store = new Store(reducer, state)
     this.loader = undefined
     this.spriteSheet = undefined
+    this.stage = new createjs.Stage(this.canvas);
   }
   async init() {
-    this.stage = new createjs.Stage(this.canvas);
     const { loader, spriteSheet } = await this.load()
     this.loader = loader
     this.spriteSheet = spriteSheet
@@ -27,29 +28,31 @@ export class Game {
   start() {
     // NOTE background
     const bg = new createjs.Bitmap(this.loader.getResult('bg2'))
+    const customMouse = new CustomMouse(this.store, this.stage)
+    customMouse.start(this.stage)
     const platform = new PlatForm(this.store)
-    this.stage.addChild(bg)
-    this.stage.addChild(platform)
-    const zombie1 = new Zombie(this.spriteSheet, this.store)
-    this.store.dispatch({ type: 'ADD_ZOMBIE', payload: zombie1 })
-    zombie1.x = 500
-    zombie1.init()
-    const zombie2 = new Zombie(this.spriteSheet, this.store)
-    platform.addZombie(2, zombie2)
-    // this.store.dispatch({ type: 'ADD_ZOMBIE', payload: zombie2 })
-    // zombie2.x = 600
-    // zombie2.init()
-    const plant = new Plant(this.spriteSheet, this.store)
-    platform.addPlant(1, 1, plant)
+    const plantCard = new PlantCard(
+      this.store, 
+      this.loader,
+      this.spriteSheet,
+      customMouse
+      )
+    this.stage.addChild(bg, customMouse, platform, plantCard)
+    setInterval(() => {
+      const zombie = new Zombie(this.spriteSheet, this.store)
+      platform.addZombie(Math.round(Math.random()*2 + 1), zombie)
+    }, 5000);
+    this.stage.on('click', () => {
+      const offX = this.stage.mouseX / this.stage.scaleX - 250
+      const offY = this.stage.mouseY / this.stage.scaleY - 180
+      const x = parseInt(offX / 80) + 1
+      const y = parseInt(offY / 80) + 1
+
+      const plant = new Plant(this.spriteSheet, this.store)
+      platform.addPlant(x, y, plant)
+    })
     const plant2 = new Plant(this.spriteSheet, this.store)
     platform.addPlant(2, 2, plant2)
-    // this.store.dispatch({ type: 'ADD_PLANT', payload: plant })
-    // plant.x = 100
-    // plant.y = 50
-    // plant.init()
-    this.stage.addChild(zombie1)
-    // this.stage.addChild(zombie2)
-    // this.stage.addChild(plant)
     createjs.Ticker.framerate = CONFIG.framerate;
     createjs.Ticker.on("tick", () => {
       this.update();

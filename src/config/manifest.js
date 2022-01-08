@@ -1,6 +1,7 @@
 export const manifest = [
   { id: 'bg1', src: require('@/assets/img/background-level-1.jpg').default},
   { id: 'bg2', src: require('@/assets/img/background-level-2.jpg').default},
+  { id: 'plantCard', src: require('@/assets/img/card/repeater-card.png').default},
   { id: 'repeaterS', src: require('@/assets/img/plant/repeater.png').default},
   { id: 'repeaterBulletS', src: require('@/assets/img/plant/repeater-bullet.png').default},
   { id: 'repeaterBulletHitS', src: require('@/assets/img/plant/repeater-bullet-hit.png').default},

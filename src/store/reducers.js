@@ -34,6 +34,12 @@ function gameReducers(state = initialState.game, action) {
         ...state,
         plants: [...state.plants, payload]
       }
+    case 'PLANT_START':
+      return {
+        ...state,
+        isPlanting: true,
+        plantType: payload
+      }
     default:
       return state
   }

@@ -19,7 +19,7 @@ export class PlatForm extends GameObject {
   }
   addZombie(y, zombie) {
     this.store.dispatch({ type: 'ADD_ZOMBIE', payload: zombie })
-    zombie.x = 600
+    zombie.x = 1000
     zombie.y = (y-1) * 110 - 50
     zombie.init()
     this.addChild(zombie)

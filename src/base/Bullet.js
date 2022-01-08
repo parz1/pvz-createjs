@@ -23,8 +23,8 @@ export class Bullet extends MoveableObject {
       this.store.state.game.zombies.forEach(zombie => { // 遍历所有僵尸，撞击到一个后修改isHit，已防多个僵尸扣血
         const pt = bullet.localToLocal(50, 50, zombie)
         if(zombie.hitTest(pt.x, pt.y) && !that.isHit) {
-          console.log('HIT')
-          zombie.hit(5)
+          // console.log('HIT')
+          zombie.hit(20)
           that.removeChild(bullet)
           bulletHit.x = bullet.x
           that.addChild(bulletHit)

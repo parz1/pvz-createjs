@@ -41,6 +41,9 @@ export const ZombieFSM = new StateMachine.factory({
         // this.instance.removeAllChildren()
         this.instance.removeChild(body)
         this.instance.addChild(dieBody)
+        setTimeout(() => {
+          this.instance.removeAllChildren()
+        }, 1000);
       }, 1000);
     }
   },

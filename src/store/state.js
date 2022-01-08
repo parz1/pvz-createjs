@@ -5,6 +5,8 @@ const worldState = {
   isOver: false
 }
 const gameState = {
+  isPlanting: false,
+  plantType: '',
   plants: [],
   zombies: [],
   hp: 100,

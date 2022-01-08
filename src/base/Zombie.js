@@ -18,7 +18,7 @@ export class Zombie extends MoveableObject {
     this.on('tick', () => {
       let that = this
       if (this.fsm.state === 'walk') {
-        this.x -= 5
+        this.x -= 0.5
       }
       if (this.x <= 0) {
         this.removeChild(this.graphic)
@@ -41,7 +41,7 @@ export class Zombie extends MoveableObject {
         if (this.plantAttacking.hp) {
           console.log('attacking')
           if (!this.counter) {
-            this.plantAttacking.eaten(50)
+            this.plantAttacking.eaten(20)
           }
           this.counter++
           this.counter %= 120
