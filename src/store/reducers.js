@@ -28,6 +28,12 @@ function gameReducers(state = initialState.game, action) {
         ...state,
         zombies: [...state.zombies, payload]
       }
+    case 'ADD_PLANT':
+      // TODO change state
+      return {
+        ...state,
+        plants: [...state.plants, payload]
+      }
     default:
       return state
   }

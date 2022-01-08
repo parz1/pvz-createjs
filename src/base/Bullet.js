@@ -5,6 +5,7 @@ export class Bullet extends MoveableObject {
     super(store)
     this.offset = offset
     this.spriteSheet = spriteSheet
+    this.isHit = false  // 确保只击中一个僵尸的flag
   }
   start() {
     const bullet = new createjs.Sprite(this.spriteSheet['repeaterBulletS'])
@@ -15,15 +16,15 @@ export class Bullet extends MoveableObject {
     const that = this
     this.on('tick', () => {
       bullet.x += 2
-      this.store.state.game.zombies.forEach(zombie => {
-        if(bullet.x >= 1080) {
-          that.removeChild(bullet)
-          that.off('tick')
-        }
+      if(bullet.x >= 1080) {
+        this.removeChild(bullet)
+        this.off('tick')
+      }
+      this.store.state.game.zombies.forEach(zombie => { // 遍历所有僵尸，撞击到一个后修改isHit，已防多个僵尸扣血
         const pt = bullet.localToLocal(50, 50, zombie)
-        if(zombie.hitTest(pt.x, pt.y)) {
+        if(zombie.hitTest(pt.x, pt.y) && !that.isHit) {
           console.log('HIT')
-          zombie.hit()
+          zombie.hit(5)
           that.removeChild(bullet)
           bulletHit.x = bullet.x
           that.addChild(bulletHit)
@@ -31,6 +32,7 @@ export class Bullet extends MoveableObject {
             that.removeChild(bulletHit)
           }, 100);
           that.off('tick')
+          that.isHit = true
         }
       })
     })

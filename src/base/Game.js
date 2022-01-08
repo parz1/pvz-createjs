@@ -6,7 +6,7 @@ import { Store } from "@/store";
 import { reducer } from "@/store/reducers";
 import { state } from "@/store/state";
 import { Zombie } from "./Zombie";
-import { Plant } from "./Plant";
+import { Plant, PlatForm } from "./Plant";
 
 export class Game {
   constructor(canvas) {
@@ -27,21 +27,29 @@ export class Game {
   start() {
     // NOTE background
     const bg = new createjs.Bitmap(this.loader.getResult('bg2'))
+    const platform = new PlatForm(this.store)
     this.stage.addChild(bg)
+    this.stage.addChild(platform)
     const zombie1 = new Zombie(this.spriteSheet, this.store)
     this.store.dispatch({ type: 'ADD_ZOMBIE', payload: zombie1 })
     zombie1.x = 500
     zombie1.init()
     const zombie2 = new Zombie(this.spriteSheet, this.store)
-    this.store.dispatch({ type: 'ADD_ZOMBIE', payload: zombie2 })
-    zombie2.x = 600
-    zombie2.init()
+    platform.addZombie(2, zombie2)
+    // this.store.dispatch({ type: 'ADD_ZOMBIE', payload: zombie2 })
+    // zombie2.x = 600
+    // zombie2.init()
     const plant = new Plant(this.spriteSheet, this.store)
-    plant.y = 50
-    plant.init()
+    platform.addPlant(1, 1, plant)
+    const plant2 = new Plant(this.spriteSheet, this.store)
+    platform.addPlant(2, 2, plant2)
+    // this.store.dispatch({ type: 'ADD_PLANT', payload: plant })
+    // plant.x = 100
+    // plant.y = 50
+    // plant.init()
     this.stage.addChild(zombie1)
-    this.stage.addChild(zombie2)
-    this.stage.addChild(plant)
+    // this.stage.addChild(zombie2)
+    // this.stage.addChild(plant)
     createjs.Ticker.framerate = CONFIG.framerate;
     createjs.Ticker.on("tick", () => {
       this.update();

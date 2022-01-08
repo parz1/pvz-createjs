@@ -5,7 +5,8 @@ export const ZombieFSM = new StateMachine.factory({
   transitions: [
     { name: 'attack', from: 'walk', to: 'attacking' },
     { name: 'burn', from: ['walk', 'attacking'], to: 'burned' },
-    { name: 'die', from: ['walk', 'attacking', 'burned'], to: 'dead' }
+    { name: 'die', from: ['walk', 'attacking', 'burned', 'dead'], to: 'dead' },
+    { name: 'walk', from: ['attacking'], to: 'walk'}
   ],
   data(instance, spriteSheet) {
     this.instance = instance
@@ -21,6 +22,11 @@ export const ZombieFSM = new StateMachine.factory({
       console.log('FSM TRANSITION: ' + lifecycle.transition)
       this.instance.removeAllChildren()
       this.instance.addChild(new createjs.Sprite(this.spriteSheet['zombieBurnedS'], 'play'))
+    },
+    onWalk(lifecycle) {
+      console.log('FSM TRANSITION: ' + lifecycle.transition)
+      this.instance.removeAllChildren()
+      this.instance.addChild(new createjs.Sprite(this.spriteSheet['zombie1S'], 'play'))
     },
     onDie(lifecycle) {
       console.log(lifecycle.transition)
