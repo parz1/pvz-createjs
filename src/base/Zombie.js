@@ -10,6 +10,7 @@ export class Zombie extends MoveableObject {
     this.graphic = null
     this.hp = 100
     this.counter = 0
+    this.plantAttacking = null
   }
   init() {
     this.graphic = new createjs.Sprite(this.spriteSheet['zombie1S'], 'play')
@@ -27,45 +28,39 @@ export class Zombie extends MoveableObject {
         this.store.state.game.plants.forEach(plant => {
           const pt = plant.localToLocal(50, 50, that.graphic)
           if (that.graphic.hitTest(pt.x, pt.y)) {
-            console.log('ATTACK')
+            console.warn('ATTACK')
+            console.log(pt.x, pt.y)
+            console.log(that.graphic.x, that.graphic.y)
             if (this.fsm.state != 'attacking') {
               that.attack()
+              that.plantAttacking = plant
             }
           }
         })
       } else if (this.fsm.state === 'attacking') {
-        // 植物扣血
-        let flag = false
-        this.store.state.game.plants.forEach(plant => {
-          const pt = plant.localToLocal(50, 50, that.graphic)
-          console.log(pt.x, pt.y)
-          console.log(that.graphic.x, that.graphic.y)
-          if (that.graphic.hitTest(pt.x, pt.y)) {
-            console.log('attacking')
-            flag = true
-            if (!that.counter) {
-              plant.eaten(50)
-            }
-            that.counter++
-            that.counter %= 1000
+        if (this.plantAttacking.hp) {
+          console.log('attacking')
+          if (!this.counter) {
+            this.plantAttacking.eaten(50)
           }
-        })
-        if(!flag) {
+          this.counter++
+          this.counter %= 120
+        } else {
           this.fsm.walk()
         }
       }
     })
+}
+attack() {
+  this.fsm.attack()
+}
+burn() {
+  this.fsm.burn()
+}
+hit(damage = 50) {
+  this.hp -= damage
+  if (this.hp <= 0 && this.fsm.state !== 'dead') {
+    this.fsm.die()
   }
-  attack() {
-    this.fsm.attack()
-  }
-  burn() {
-    this.fsm.burn()
-  }
-  hit(damage = 50) {
-    this.hp -= damage
-    if (this.hp <= 0 && this.fsm.state !== 'dead') {
-      this.fsm.die()
-    }
-  }
+}
 }

@@ -8,6 +8,7 @@ export class PlatForm extends GameObject {
     this.x = 250
     this.y = 180
     this.addChild(new createjs.Text('HELLO'))
+    this.timer = null
   }
   addPlant(x, y, plant) {
     this.store.dispatch({ type: 'ADD_PLANT', payload: plant })
@@ -35,7 +36,7 @@ export class Plant extends GameObject {
   init() {
     this.addChild(this.repeater)
     // this.shoot()
-    setInterval(() => {
+    this.timer = setInterval(() => {
       this.shoot()
     }, 2000);
   }
@@ -48,6 +49,7 @@ export class Plant extends GameObject {
     console.log('EATEN')
     this.hp -= damage
     if(this.hp <= 0) {
+      clearInterval(this.timer)
       this.removeAllChildren()
     }
   }
